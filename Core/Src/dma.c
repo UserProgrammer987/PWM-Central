@@ -31,6 +31,17 @@
 
 /* USER CODE BEGIN 1 */
 
+void DMA1_Channel1_IRQHandler(void)
+{
+	if (DMA1->ISR & DMA_ISR_TCIF1){
+		DMA1->IFCR |= DMA_ISR_TCIF1;
+		
+		GPIOC->ODR ^= (1 << 6); // светодиод переключить
+		
+		ADC1->CR |= ADC_CR_ADSTP; // вырубить ADC
+		
+	}
+}
 /* USER CODE END 1 */
 
 /**

@@ -66,9 +66,11 @@ void TIM6_DAC_IRQHandler(void){
 	//phase[B] += STEP;
 	//phase[C] += STEP;
 	
-	//TIM1 -> CCR1 = getDuty(phase[A]);
+	TIM1 -> CCR1 = getDuty(phase[A]);
 	//TIM1 -> CCR2 = getDuty(phase[B]);
 	//TIM1 -> CCR3 = getDuty(phase[C]);
+	
+	NDTR_change();
 	
 }
 

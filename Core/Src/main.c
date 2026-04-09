@@ -53,7 +53,7 @@ float adcVoltage[200];
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+extern uint16_t calcNumMeasure(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -127,100 +127,56 @@ void DMA_ADC_config(uint16_t *data){
 }
 */
 
-void DMA_ADC_config(uint16_t *data)
+void DMA_ADC_config(uint16_t *data, uint16_t size)
 {
     /* ---------------- DMA ---------------- */
 
-    /* 1. Disable DMA channel */
+    /* Disable DMA channel */
     DMA1_Channel1->CCR &= ~DMA_CCR_EN;
     while (DMA1_Channel1->CCR & DMA_CCR_EN) {}
 
-    /* 2. Clear DMA flags */
-    DMA1->IFCR = DMA_IFCR_CGIF1 | DMA_IFCR_CTCIF1 |
-                 DMA_IFCR_CHTIF1 | DMA_IFCR_CTEIF1;
-
-    /* 3. Configure DMA: peripheral -> memory, circular, half-word */
-    DMA1_Channel1->CCR &= ~DMA_CCR_DIR;      // read from peripheral
-    DMA1_Channel1->CCR |= DMA_CCR_TCIE;      // transfer complete interrupt
-    DMA1_Channel1->CCR |= DMA_CCR_CIRC;      // circular mode
-    DMA1_Channel1->CCR |= DMA_CCR_MINC;      // memory increment
-
-    DMA1_Channel1->CCR |= DMA_CCR_MSIZE_0;   // memory size = 16 bit
-    DMA1_Channel1->CCR &= ~DMA_CCR_MSIZE_1;
-
-    DMA1_Channel1->CCR |= DMA_CCR_PSIZE_0;   // peripheral size = 16 bit
-    DMA1_Channel1->CCR &= ~DMA_CCR_PSIZE_1;
-
-    DMA1_Channel1->CNDTR = 30;
+    /* Configure DMA: peripheral -> memory, circular, half-word */
+			DMA1_Channel1 -> CCR |= DMA_CCR_TCIE; // включить прерывание по концу передачи
+    DMA1_Channel1->CNDTR = size;
     DMA1_Channel1->CPAR  = (uint32_t)&ADC1->DR;
     DMA1_Channel1->CMAR  = (uint32_t)data;
 
     /* ---------------- ADC power / calibration ---------------- */
 
-    /* 4. If ADC enabled, disable it first */
+    /* If ADC enabled, disable it first */
     if (ADC1->CR & ADC_CR_ADEN)
     {
         ADC1->CR |= ADC_CR_ADDIS;
         while (ADC1->CR & ADC_CR_ADEN) {}
     }
 
-    /* 5. Exit deep power down, enable regulator */
-    ADC1->CR &= ~ADC_CR_DEEPPWD;
-    ADC1->CR |= ADC_CR_ADVREGEN;
+    ADC1->CR |= ADC_CR_ADVREGEN; // отрегулировать ADC
 
     /* regulator startup delay */
     for (volatile uint32_t i = 0; i < 2000; i++) { __NOP(); }
-
-    /* 6. Set differential mode for the needed channel
-       Example below is for channel 2 only.
-       Replace if your ADC regular channel is different. */
-    ADC1->DIFSEL |= ADC_DIFSEL_DIFSEL_1;
 
     /* 7. Calibrate ADC in differential mode */
     ADC1->CR |= ADC_CR_ADCALDIF;
     ADC1->CR |= ADC_CR_ADCAL;
     while (ADC1->CR & ADC_CR_ADCAL) {}
 
-    /* 8. Clear ADC flags */
-    ADC1->ISR = ADC_ISR_ADRDY | ADC_ISR_EOC | ADC_ISR_EOS | ADC_ISR_OVR;
 
     /* ---------------- ADC configuration ---------------- */
 
-    /* 9. 12-bit resolution */
-    ADC1->CFGR &= ~(ADC_CFGR_RES_0 | ADC_CFGR_RES_1);
+    /* Disable continuous mode if conversion must start from TIM1 event */
+    ADC1->CFGR |= ADC_CFGR_CONT; // continous режим
 
-    /* 10. Disable continuous mode if conversion must start from TIM1 event */
-    ADC1->CFGR &= ~ADC_CFGR_CONT;
-
-    /* 11. Enable DMA from ADC */
+    /*  Enable DMA from ADC */
     ADC1->CFGR |= ADC_CFGR_DMAEN;
     ADC1->CFGR |= ADC_CFGR_DMACFG;   // circular DMA requests
 
-    /* 12. External trigger edge */
-    ADC1->CFGR &= ~ADC_CFGR_EXTEN;
-    ADC1->CFGR |= ADC_CFGR_EXTEN_0;  // rising edge
-
-    /* 13. Select external trigger source
-       IMPORTANT:
-       Put here the exact TIM1 source you use in CubeMX:
-       - TIM1_CC1 event
-       - or TIM1_TRGO
-       - or TIM1_TRGO2
-
-       Example for TIM1_CC1 with HAL macro:
-       ADC1->CFGR &= ~ADC_CFGR_EXTSEL;
-       ADC1->CFGR |= ADC_EXTERNALTRIG_T1_CC1;
-    */
-    ADC1->CFGR &= ~ADC_CFGR_EXTSEL;
-    ADC1->CFGR |= ADC_EXTERNALTRIG_T1_CC1;
-
     /* ---------------- ADC enable / DMA enable ---------------- */
 
-    /* 14. Enable ADC */
+    /* Enable ADC */
     ADC1->CR |= ADC_CR_ADEN;
     while (!(ADC1->ISR & ADC_ISR_ADRDY)) {}
 
-    /* 15. Enable DMA channel */
+    /* Enable DMA channel */
     DMA1_Channel1->CCR |= DMA_CCR_EN;
 
     /* 16. Arm ADC regular group
@@ -228,6 +184,12 @@ void DMA_ADC_config(uint16_t *data)
        This matches HAL behavior more closely. */
     ADC1->CR |= ADC_CR_ADSTART;
 }
+
+void NDTR_change(){
+	DMA1_Channel1 -> CNDTR = calcNumMeasure();
+}
+
+
 /* USER CODE END 0 */
 
 /**
@@ -268,7 +230,7 @@ int main(void)
 	//HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_1);
 	
 	//HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_results, 20);
-	DMA_ADC_config(adc_results);
+	DMA_ADC_config(adc_results, calcNumMeasure());
 	
 	TIM1_config();
 	TIM1_start();

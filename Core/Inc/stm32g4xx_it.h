@@ -46,7 +46,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void DMA1_Channel1_IRQHandler(void);
+
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

@@ -12,6 +12,8 @@
 #define STEP 1
 
 extern uint16_t calcNumMeasure(void);
+extern void TIM8_start(void);
+
 
 const uint16_t phase_step_120 = (uint16_t)(((uint32_t)120 * 65536UL) / 360UL);
 const uint16_t phase_step_240 = (uint16_t)(((uint32_t)240 * 65536UL) / 360UL);
@@ -66,11 +68,11 @@ void TIM6_DAC_IRQHandler(void){
 	//phase[B] += STEP;
 	//phase[C] += STEP;
 	
-	TIM1 -> CCR1 = getDuty(phase[A]);
+	//TIM1 -> CCR1 = getDuty(phase[A]);
 	//TIM1 -> CCR2 = getDuty(phase[B]);
 	//TIM1 -> CCR3 = getDuty(phase[C]);
 	
-	NDTR_change();
+	//DMA1_Channel1 -> CNDTR = calcNumMeasure();
 	
 }
 

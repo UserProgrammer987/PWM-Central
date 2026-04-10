@@ -22,7 +22,9 @@
 #include "dma.h"
 
 /* USER CODE BEGIN 0 */
-
+extern uint16_t calcNumMeasure(void);
+extern void ADC_restart(uint16_t *data, uint16_t size);
+extern uint16_t adc_results[200];
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/
@@ -36,9 +38,7 @@ void DMA1_Channel1_IRQHandler(void)
 	if (DMA1->ISR & DMA_ISR_TCIF1){
 		DMA1->IFCR |= DMA_ISR_TCIF1;
 		
-		GPIOC->ODR ^= (1 << 6); // светодиод переключить
-		
-		ADC1->CR |= ADC_CR_ADSTP; // вырубить ADC
+		ADC_restart(adc_results, 60);
 		
 	}
 }

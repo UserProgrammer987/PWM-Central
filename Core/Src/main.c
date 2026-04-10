@@ -85,48 +85,6 @@ void TIM1_start(){
 	TIM1 -> CR1 |= TIM_CR1_CEN;
 }
 
-/*
-void DMA_ADC_config(uint16_t *data){
-	
-	DMA1_Channel1 -> CCR &= ~DMA_CCR_EN; // вырубить DMA 
-	
-	//настройка DMA
-	DMA1_Channel1 -> CCR &= ~DMA_CCR_DIR; //read from peripheral
-	DMA1_Channel1 -> CCR |= DMA_CCR_TCIE; // включить TC прерывание
-	DMA1_Channel1 -> CCR |= DMA_CCR_CIRC; // circ режим
-	DMA1_Channel1 -> CCR |= DMA_CCR_MINC; // memory increment
-	DMA1_Channel1 -> CCR |= DMA_CCR_MSIZE_0;
-	DMA1_Channel1 -> CCR &= ~DMA_CCR_MSIZE_1; // 16 bits 
-	
-	DMA1_Channel1 -> CNDTR = 30;
-	DMA1_Channel1 -> CPAR = (uint32_t)&ADC1->DR;
-	DMA1_Channel1 -> CMAR = (uint32_t)data;
-
-	
-	// настройка ADC
-	ADC1->CR |= ADC_CR_ADVREGEN; // калибровка напряжения
-	HAL_Delay(10);
-	ADC1->CR |= ADC_CR_ADCALDIF; 
-	ADC1->CR |= ADC_CR_ADCAL; // калибровка ADC
-	HAL_Delay(10);
-	
-	ADC1-> CFGR |= ADC_CFGR_CONT; // continous mode
-	ADC1-> CFGR |= ADC_CFGR_EXTEN_0;
-	ADC1 -> CFGR &= ~(ADC_CFGR_RES_0 | ADC_CFGR_RES_1);
-	
-	ADC1->CFGR &= ~(ADC_CFGR_RES_0 | ADC_CFGR_RES_1);
-	
-	ADC1->CFGR |= ADC_CFGR_DMACFG; 
-	ADC1->CFGR |= ADC_CFGR_DMAEN; 
-	
-	ADC1->CR |= ADC_CR_ADEN; // врубить ADC
-	DMA1_Channel1 -> CCR |= DMA_CCR_EN; // врубить DMA
-	
-	//ADC1->CR |= ADC_CR_ADSTART;
-
-}
-*/
-
 void DMA_ADC_config(uint16_t *data, uint16_t size)
 {
     /* ---------------- DMA ---------------- */
@@ -185,10 +143,43 @@ void DMA_ADC_config(uint16_t *data, uint16_t size)
     ADC1->CR |= ADC_CR_ADSTART;
 }
 
-void NDTR_change(){
-	DMA1_Channel1 -> CNDTR = calcNumMeasure();
-}
+void ADC_restart(uint16_t *data, uint16_t size)
+{
+    /* 1. Остановить regular conversions */
+    if (ADC1->CR & ADC_CR_ADSTART)
+    {
+        ADC1->CR |= ADC_CR_ADSTP;
+        while (ADC1->CR & ADC_CR_ADSTP) {}
+    }
 
+    /* 2. Выключить DMA channel */
+    DMA1_Channel1->CCR &= ~DMA_CCR_EN;
+    while (DMA1_Channel1->CCR & DMA_CCR_EN) {}
+
+    /* 3. Очистить DMA flags */
+    DMA1->IFCR = DMA_IFCR_CGIF1 |
+                 DMA_IFCR_CTCIF1 |
+                 DMA_IFCR_CHTIF1 |
+                 DMA_IFCR_CTEIF1;
+
+    /* 4. Очистить флаги ADC */
+    ADC1->ISR = ADC_ISR_EOC |
+                ADC_ISR_EOS |
+                ADC_ISR_OVR;
+
+    /* 5. Перезагрузить DMA */
+    DMA1_Channel1->CNDTR = size;
+    DMA1_Channel1->CPAR  = (uint32_t)&ADC1->DR;
+    DMA1_Channel1->CMAR  = (uint32_t)data;
+
+    /* 6. Снова включить DMA */
+    DMA1_Channel1->CCR |= DMA_CCR_EN;
+
+    /* 7. Снова взвести ADC.
+       Теперь он НЕ стартует сразу,
+       а будет ждать следующий внешний trigger от TIM1 CC event */
+    ADC1->CR |= ADC_CR_ADSTART;
+}
 
 /* USER CODE END 0 */
 
@@ -230,12 +221,13 @@ int main(void)
 	//HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_1);
 	
 	//HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_results, 20);
-	DMA_ADC_config(adc_results, calcNumMeasure());
-	
+	DMA_ADC_config(adc_results, 60);
+
 	TIM1_config();
 	TIM1_start();
 	
 	TIM6_start();
+	
 	
   /* USER CODE END 2 */
 

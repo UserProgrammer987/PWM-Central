@@ -65,6 +65,16 @@ void TIM6_start(){
 	TIM6->DIER |= TIM_DIER_UIE;
 }
 
+
+void TIM2_config(){
+	TIM2->DIER |= TIM_DIER_CC1IE;
+}
+
+void TIM2_start(){
+	TIM2->DIER |= TIM_DIER_UIE;
+	TIM2->CR1 |= TIM_CR1_CEN;
+}
+
 void TIM1_config(){
 	
 	TIM1->BDTR |= TIM_BDTR_MOE;
@@ -87,21 +97,16 @@ void TIM1_start(){
 
 void DMA_ADC_config(uint16_t *data, uint16_t size)
 {
-    /* ---------------- DMA ---------------- */
 
-    /* Disable DMA channel */
     DMA1_Channel1->CCR &= ~DMA_CCR_EN;
     while (DMA1_Channel1->CCR & DMA_CCR_EN) {}
 
-    /* Configure DMA: peripheral -> memory, circular, half-word */
-			DMA1_Channel1 -> CCR |= DMA_CCR_TCIE; // включить прерывание по концу передачи
+
+		DMA1_Channel1 -> CCR |= DMA_CCR_TCIE; // включить прерывание по концу передачи
     DMA1_Channel1->CNDTR = size;
     DMA1_Channel1->CPAR  = (uint32_t)&ADC1->DR;
     DMA1_Channel1->CMAR  = (uint32_t)data;
 
-    /* ---------------- ADC power / calibration ---------------- */
-
-    /* If ADC enabled, disable it first */
     if (ADC1->CR & ADC_CR_ADEN)
     {
         ADC1->CR |= ADC_CR_ADDIS;
@@ -110,7 +115,6 @@ void DMA_ADC_config(uint16_t *data, uint16_t size)
 
     ADC1->CR |= ADC_CR_ADVREGEN; // отрегулировать ADC
 
-    /* regulator startup delay */
     for (volatile uint32_t i = 0; i < 2000; i++) { __NOP(); }
 
     /* 7. Calibrate ADC in differential mode */
@@ -119,28 +123,19 @@ void DMA_ADC_config(uint16_t *data, uint16_t size)
     while (ADC1->CR & ADC_CR_ADCAL) {}
 
 
-    /* ---------------- ADC configuration ---------------- */
 
-    /* Disable continuous mode if conversion must start from TIM1 event */
     ADC1->CFGR |= ADC_CFGR_CONT; // continous режим
 
-    /*  Enable DMA from ADC */
     ADC1->CFGR |= ADC_CFGR_DMAEN;
-    ADC1->CFGR |= ADC_CFGR_DMACFG;   // circular DMA requests
+    ADC1->CFGR |= ADC_CFGR_DMACFG;   // circular DMA 
 
-    /* ---------------- ADC enable / DMA enable ---------------- */
 
-    /* Enable ADC */
     ADC1->CR |= ADC_CR_ADEN;
     while (!(ADC1->ISR & ADC_ISR_ADRDY)) {}
 
-    /* Enable DMA channel */
     DMA1_Channel1->CCR |= DMA_CCR_EN;
 
-    /* 16. Arm ADC regular group
-       For external trigger mode this usually puts ADC in waiting state.
-       This matches HAL behavior more closely. */
-    ADC1->CR |= ADC_CR_ADSTART;
+    ADC1->CR |= ADC_CR_ADSTART; // врубить ADC
 }
 
 void ADC_restart(uint16_t *data, uint16_t size)
@@ -175,9 +170,7 @@ void ADC_restart(uint16_t *data, uint16_t size)
     /* 6. Снова включить DMA */
     DMA1_Channel1->CCR |= DMA_CCR_EN;
 
-    /* 7. Снова взвести ADC.
-       Теперь он НЕ стартует сразу,
-       а будет ждать следующий внешний trigger от TIM1 CC event */
+    /* 7. Снова взвести ADC. */
     ADC1->CR |= ADC_CR_ADSTART;
 }
 
@@ -215,14 +208,17 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM6_Init();
   MX_ADC1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 	
 	//HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
 	//HAL_TIMEx_PWMN_Start(&htim8, TIM_CHANNEL_1);
 	
 	//HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_results, 20);
-	DMA_ADC_config(adc_results, 60);
-
+	
+	DMA_ADC_config(adc_results, 68);
+	
+	TIM2_config();
 	TIM1_config();
 	TIM1_start();
 	

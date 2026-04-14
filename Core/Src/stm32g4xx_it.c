@@ -78,7 +78,10 @@ extern TIM_HandleTypeDef htim2;
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
-	GPIOC -> ODR &= ~(1 << 6);
+	if (TIM2 -> SR & TIM_SR_UIF){
+		TIM2 -> SR &= ~TIM_SR_UIF;
+		GPIOC -> ODR &= ~(1 << 6);
+	}
   /* USER CODE END TIM2_IRQn 0 */
   /* USER CODE BEGIN TIM2_IRQn 1 */
 

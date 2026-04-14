@@ -67,7 +67,7 @@ void TIM6_start(){
 
 
 void TIM2_config(){
-	TIM2->DIER |= TIM_DIER_CC1IE;
+	//TIM2->DIER |= TIM_DIER_CC1IE;
 }
 
 void TIM2_start(){

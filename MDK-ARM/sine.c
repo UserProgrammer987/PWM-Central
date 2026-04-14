@@ -64,15 +64,15 @@ void TIM6_DAC_IRQHandler(void){
 	
 	TIM6 -> SR &= ~TIM_SR_UIF;
 	
-	//phase[A] += STEP;
+	phase[A] += STEP;
 	//phase[B] += STEP;
 	//phase[C] += STEP;
 	
-	//TIM1 -> CCR1 = getDuty(phase[A]);
+	TIM1 -> CCR1 = getDuty(phase[A]);
 	//TIM1 -> CCR2 = getDuty(phase[B]);
 	//TIM1 -> CCR3 = getDuty(phase[C]);
 	
-	//DMA1_Channel1 -> CNDTR = calcNumMeasure();
+	DMA1_Channel1 -> CNDTR = calcNumMeasure();
 	
 }
 

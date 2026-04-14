@@ -4,11 +4,11 @@
 #include "tim.h"
 #include "gpio.h"
 
-#define T_adc 341000 // (2.5 + 12) / 42.5 MHz = 341 мкс = 341 000 нс
-#define T_tim 5.88 // время одного такта таймера TIM8
-#define adcTicks 58 // 341 000 / 5.88 количество тактов таймера на 1 измерение АЦП
+#define CPU_Ticks_to_ADC_Ticks 4 // на 1 такт АЦП приходится 4 такта ЦПУ
+#define ADC_Ticks 60 // 47.5 sampling time + 12 бит разрешение = 60 тактов АЦП для 1 расчёта
+
 
 uint16_t calcNumMeasure(){
-	uint32_t T_active = (TIM1 -> CCR1) ; // кол-во тактов активной части сигнала
-	return (T_active / adcTicks);
+	uint32_t T_active = (TIM1 -> CCR1) * 2; // кол-во тактов активной части сигнала (Умножается на 2, так как ШИМ центральный)
+	return (T_active / (CPU_Ticks_to_ADC_Ticks * ADC_Ticks));
 }

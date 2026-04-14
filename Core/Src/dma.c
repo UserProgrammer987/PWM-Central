@@ -41,7 +41,7 @@ void DMA1_Channel1_IRQHandler(void)
 		
 		GPIOC -> ODR |= (1 << 6);
 		TIM2_start();
-		ADC_restart(adc_results, 68);
+		ADC_restart(adc_results, calcNumMeasure());
 		
 	}
 }

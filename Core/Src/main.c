@@ -216,7 +216,7 @@ int main(void)
 	
 	//HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_results, 20);
 	
-	DMA_ADC_config(adc_results, 68);
+	DMA_ADC_config(adc_results, calcNumMeasure());
 	
 	TIM2_config();
 	TIM1_config();

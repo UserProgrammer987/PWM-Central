@@ -1,6 +1,6 @@
 Dependencies for Project 'PWM', Target 'PWM': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (startup_stm32g431xx.s)(0x69D91ABE)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "STM32G431xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32g431xx.lst --xref -o pwm\startup_stm32g431xx.o --depend pwm\startup_stm32g431xx.d)
+F (startup_stm32g431xx.s)(0x69DE30DB)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "STM32G431xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32g431xx.lst --xref -o pwm\startup_stm32g431xx.o --depend pwm\startup_stm32g431xx.d)
 F (.\sine.h)(0x69B41239)()
 F (.\sine.c)(0x69D90EB2)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\sine.o --omf_browse pwm\sine.crf --depend pwm\sine.d)
 I (../Core/Inc/main.h)(0x69B3E483)
@@ -77,7 +77,7 @@ I (../Core/Inc/adc.h)(0x69BD24BA)
 I (../Core/Inc/dma.h)(0x69D66DD5)
 I (../Core/Inc/tim.h)(0x69D91ABC)
 I (../Core/Inc/gpio.h)(0x69B3E482)
-F (../Core/Src/main.c)(0x69DE233D)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\main.o --omf_browse pwm\main.crf --depend pwm\main.d)
+F (../Core/Src/main.c)(0x69DE2EB1)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\main.o --omf_browse pwm\main.crf --depend pwm\main.d)
 I (../Core/Inc/main.h)(0x69B3E483)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x6942E014)
 I (../Core/Inc/stm32g4xx_hal_conf.h)(0x69BD24BB)
@@ -151,7 +151,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h)(0x6942E014)
-F (../Core/Src/adc.c)(0x69D9140D)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\adc.o --omf_browse pwm\adc.crf --depend pwm\adc.d)
+F (../Core/Src/adc.c)(0x69DE30D9)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\adc.o --omf_browse pwm\adc.crf --depend pwm\adc.d)
 I (../Core/Inc/adc.h)(0x69BD24BA)
 I (../Core/Inc/main.h)(0x69B3E483)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x6942E014)
@@ -221,7 +221,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h)(0x6942E014)
-F (../Core/Src/tim.c)(0x69D91ABC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\tim.o --omf_browse pwm\tim.crf --depend pwm\tim.d)
+F (../Core/Src/tim.c)(0x69DE30DA)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\tim.o --omf_browse pwm\tim.crf --depend pwm\tim.d)
 I (../Core/Inc/tim.h)(0x69D91ABC)
 I (../Core/Inc/main.h)(0x69B3E483)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x6942E014)
@@ -256,7 +256,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h)(0x6942E014)
-F (../Core/Src/stm32g4xx_it.c)(0x69D91C10)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\stm32g4xx_it.o --omf_browse pwm\stm32g4xx_it.crf --depend pwm\stm32g4xx_it.d)
+F (../Core/Src/stm32g4xx_it.c)(0x69DE304B)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\stm32g4xx_it.o --omf_browse pwm\stm32g4xx_it.crf --depend pwm\stm32g4xx_it.d)
 I (../Core/Inc/main.h)(0x69B3E483)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x6942E014)
 I (../Core/Inc/stm32g4xx_hal_conf.h)(0x69BD24BB)
@@ -290,7 +290,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h)(0x6942E014)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h)(0x6942E014)
-I (../Core/Inc/stm32g4xx_it.h)(0x69D91ABD)
+I (../Core/Inc/stm32g4xx_it.h)(0x69DE2E9D)
 F (../Core/Src/stm32g4xx_hal_msp.c)(0x69B3E483)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_PWM-ID:\Andrew\Keil\keilPacks\ARM\CMSIS\5.8.0\CMSIS\Core\Include-ID:\Andrew\Keil\keilPacks\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o pwm\stm32g4xx_hal_msp.o --omf_browse pwm\stm32g4xx_hal_msp.crf --depend pwm\stm32g4xx_hal_msp.d)
 I (../Core/Inc/main.h)(0x69B3E483)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x6942E014)

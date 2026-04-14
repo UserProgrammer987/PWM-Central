@@ -3,7 +3,7 @@
 <title>Static Call Graph - [PWM\PWM.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image PWM\PWM.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Apr 14 14:22:13 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Apr 14 15:19:49 2026
 <BR><P>
 <H3>Maximum Stack Usage =        248 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -872,7 +872,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PWM_Init
 </UL>
 
-<P><STRONG><a name="[9c]"></a>MX_ADC1_Init</STRONG> (Thumb, 138 bytes, Stack size 56 bytes, adc.o(i.MX_ADC1_Init))
+<P><STRONG><a name="[9c]"></a>MX_ADC1_Init</STRONG> (Thumb, 142 bytes, Stack size 56 bytes, adc.o(i.MX_ADC1_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = MX_ADC1_Init &rArr; HAL_ADC_Init &rArr; HAL_ADC_MspInit &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Init
@@ -903,7 +903,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a0]"></a>MX_TIM1_Init</STRONG> (Thumb, 254 bytes, Stack size 120 bytes, tim.o(i.MX_TIM1_Init))
+<P><STRONG><a name="[a0]"></a>MX_TIM1_Init</STRONG> (Thumb, 256 bytes, Stack size 120 bytes, tim.o(i.MX_TIM1_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = MX_TIM1_Init &rArr; HAL_TIM_MspPostInit &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PWM_Init
@@ -955,7 +955,7 @@ Global Symbols
 <P><STRONG><a name="[52]"></a>SystemInit</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, system_stm32g4xx.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(.text)
 </UL>
-<P><STRONG><a name="[aa]"></a>TIM1_config</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, main.o(i.TIM1_config))
+<P><STRONG><a name="[aa]"></a>TIM1_config</STRONG> (Thumb, 84 bytes, Stack size 0 bytes, main.o(i.TIM1_config))
 <BR><BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -963,7 +963,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[27]"></a>TIM2_IRQHandler</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.TIM2_IRQHandler))
+<P><STRONG><a name="[27]"></a>TIM2_IRQHandler</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.TIM2_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(RESET)
 </UL>
 <P><STRONG><a name="[a9]"></a>TIM2_config</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, main.o(i.TIM2_config))

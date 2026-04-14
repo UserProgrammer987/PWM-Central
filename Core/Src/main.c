@@ -78,7 +78,10 @@ void TIM2_start(){
 void TIM1_config(){
 	
 	TIM1->BDTR |= TIM_BDTR_MOE;
-	TIM1 -> CR1 |= TIM_CR1_CMS_1;
+	
+	TIM1 -> CR1 &= ~TIM_CR1_CMS_0;
+	TIM1 -> CR1 |= TIM_CR1_CMS_1; // режим где флаг прерывания устанавливается только на подьёме и OC1REF тоже только на подьёме - для триггера АЦП
+	
 	
 	TIM1->CCER |= TIM_CCER_CC1E; 
 	TIM1->CCER |= TIM_CCER_CC1NE; 
